@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leads</title>
+</head>
+<body>
+    <h1>Leads</h1>
+    <ul>
+        {% for lead in leads %}
+        <li><a href="/leads/{{ lead.pk }}">{{ lead.first_name }} {{ lead.last_name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
