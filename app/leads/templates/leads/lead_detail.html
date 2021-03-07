@@ -1,13 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Lead Detail</title>
-</head>
-<body>
- <h1>Lead Detail</h1>
-   {{ lead.first_name }} {{ lead.last_name }} {{ lead.age }}
+{% extends "base.html" %}
 
- <a href="/leads">Back</a>
-</body>
-</html>
+{% block content %}
+    <a type="button" href="{% url 'leads:lead-list' %}" class="btn btn-outline-primary mb-4">Back</a>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ lead.first_name }} {{ lead.last_name }}</h5>
+                    <p class="card-text">The agent is {{ lead.agent }}</p>
+                    <a href="{% url 'leads:lead-update' lead.pk %}" class="card-link">Update</a>
+                    <a href="{% url 'leads:lead-delete' lead.pk %}" class="card-link">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
