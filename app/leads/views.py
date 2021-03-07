@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .models import Lead, Agent
-from .forms import LeadForm
+from django.urls import reverse
 from .forms import LeadModelForm
+from .models import Lead
 
 
 def lead_list(request):
@@ -27,7 +26,7 @@ def lead_create(request):
         form = LeadModelForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("/leads")
+            return redirect(reverse('leads:lead-list'))
     context = {
         "form": form
     }
