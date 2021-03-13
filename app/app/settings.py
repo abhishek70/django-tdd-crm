@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'leads'
+    'leads',
+    'authentication'
 ]
 
 MIDDLEWARE = [
@@ -127,3 +128,5 @@ STATICFILES_DIRS = [
 STATIC_ROOT = 'static_root'
 
 AUTH_USER_MODEL = 'leads.User'
+LOGIN_REDIRECT_URL = '/leads'
+LOGIN_URL = '/login'

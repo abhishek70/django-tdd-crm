@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import LeadModelForm
 from .models import Lead
 
@@ -8,7 +9,7 @@ Class based views
 """
 
 
-class LeadListView(generic.ListView):
+class LeadListView(LoginRequiredMixin, generic.ListView):
     """
     Lead list view
     """
@@ -17,7 +18,7 @@ class LeadListView(generic.ListView):
     context_object_name = "leads"
 
 
-class LeadDetailView(generic.DetailView):
+class LeadDetailView(LoginRequiredMixin, generic.DetailView):
     """
     Lead detail view
     """
@@ -26,12 +27,18 @@ class LeadDetailView(generic.DetailView):
     context_object_name = "lead"
 
 
-class LeadCreateView(generic.CreateView):
+class LeadCreateView(LoginRequiredMixin, generic.CreateView):
     """
     Lead create view
     """
     template_name = "leads/lead_create.html"
     form_class = LeadModelForm
+
+    def form_valid(self, form):
+        # TODO
+        # 1. Send an email
+        # 2. Add an event in event bus
+        return super(LeadCreateView, self).form_valid(form)
 
     def get_success_url(self):
         """
@@ -41,7 +48,7 @@ class LeadCreateView(generic.CreateView):
         return reverse("leads:lead-list")
 
 
-class LeadUpdateView(generic.UpdateView):
+class LeadUpdateView(LoginRequiredMixin, generic.UpdateView):
     """
     Lead update view
     """
@@ -59,7 +66,7 @@ class LeadUpdateView(generic.UpdateView):
         return redirect_url
 
 
-class LeadDeleteView(generic.DeleteView):
+class LeadDeleteView(LoginRequiredMixin, generic.DeleteView):
     """
     Lead delete view
     """
