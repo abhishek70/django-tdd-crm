@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <a type="button" href="{% url 'agents:agent-list' %}" class="btn btn-outline-primary mb-4">Back</a>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ agent.user.first_name }} {{ agent.user.last_name }}</h5>
+                    <p class="card-text">Email : {{ agent.user.email }}</p>
+                    <a href="{% url 'agents:agent-update' agent.pk %}" class="card-link">Update</a>
+                    <a href="{% url 'agents:agent-delete' agent.pk %}" class="card-link">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

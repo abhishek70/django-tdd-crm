@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+    {% if request.user.is_organizer %}
     <a type="button" href="{% url 'leads:lead-create' %}" class="btn btn-outline-primary mb-4">Create Lead</a>
+    {% endif %}
     <div class="row">
         {% for lead in leads %}
           <div class="col-md-4 mb-4">
@@ -11,7 +13,9 @@
                     <p class="card-text"></p>
                     <a href="{% url 'leads:lead-detail' lead.pk %}" class="card-link">View</a>
                       <a href="{% url 'leads:lead-update' lead.pk %}" class="card-link">Update</a>
+                      {% if request.user.is_organizer %}
                     <a href="{% url 'leads:lead-delete' lead.pk %}" class="card-link">Delete</a>
+                      {% endif %}
                   </div>
               </div>
           </div>

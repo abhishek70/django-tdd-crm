@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Update</h1>
+    <form action="." method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="reset" class="btn btn-danger">Reset</button>
+        <a href="{% url 'agents:agent-list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock content %}
