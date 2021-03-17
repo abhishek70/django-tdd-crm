@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .mixins import OrganizerAndLoginRequiredMixin
 from leads.models import Agent
 from .forms import AgentModelForm
+import random
 
 
 class AgentListView(OrganizerAndLoginRequiredMixin, generic.ListView):
@@ -25,9 +26,17 @@ class AgentCreateView(OrganizerAndLoginRequiredMixin, generic.CreateView):
     form_class = AgentModelForm
 
     def form_valid(self, form):
-        agent = form.save(commit=False)
-        agent.organization = self.request.user.userprofile
-        agent.save()
+        user = form.save(commit=False)
+        user.is_agent = True
+        user.is_organizer = False
+        user.set_password(f"{random.randint(0, 1000)}")
+        user.save()
+        Agent.objects.create(
+            user=user,
+            organization=self.request.user.userprofile
+        )
+        # TODO
+        # Send an invitation email to agent
         return super(AgentCreateView, self).form_valid(form)
 
     def get_success_url(self):
